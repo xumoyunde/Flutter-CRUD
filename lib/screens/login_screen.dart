@@ -16,22 +16,41 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> signIn() async {
-    try {
-      final String email = _emailController.text.trim();
-      final String password = _passwordController.text.trim();
+  // Future<void> signIn() async {
+  //   try {
+  //     final String email = _emailController.text.trim();
+  //     final String password = _passwordController.text.trim();
+  //
+  //     UserCredential userCredential =
+  //         await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //
+  //     // Sign-in successful, do something
+  //   } catch (e) {
+  //     // Handle sign-in error
+  //     print('Sign-in Error: $e');
+  //   }
+  // }
 
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+  Future signIn() async {
 
-      // Sign-in successful, do something
-    } catch (e) {
-      // Handle sign-in error
-      print('Sign-in Error: $e');
-    }
+    // loading circle
+    showDialog(
+      context: context,
+      builder: (context){
+        return Center(child: CircularProgressIndicator());
+      }
+    );
+
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+
+    // pop the loading circle
+    Navigator.of(context).pop();
   }
 
   @override
@@ -132,9 +151,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (builder){
-                            return ForgotPasswordScreen();
-                          },),);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (builder) {
+                                return ForgotPasswordScreen();
+                              },
+                            ),
+                          );
                         },
                         child: Text(
                           "Forgot Password?",
