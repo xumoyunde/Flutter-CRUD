@@ -51,7 +51,7 @@ class _ScreensState extends State<Screens> {
               tabs: [
                 GButton(icon: LineIcons.home, text: "Bosh sahifa",),
                 GButton(icon: LineIcons.list, text: "Katalog",),
-                GButton(icon: LineIcons.heart, text: "Savatcha",),
+                GButton(icon: LineIcons.addToShoppingCart, text: "Savatcha",),
                 GButton(icon: LineIcons.user, text: "Shaxsiy kabinet",),
               ],
               selectedIndex: _selectedIndex,
